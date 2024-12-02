@@ -23,11 +23,16 @@ else
   service='sudo service'
 fi
 
+# Detect if running on macOS with MacPorts
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  service='sudo port load postgresql15-server'
+fi
+
 echo $psql
 echo $service
 
-# This will only work on systems with `service`. Best-effort.
-$service postgresql start || true
+# This will only work on systems with `service` or `port`. Best-effort.
+$service || true
 
 # createdb are missing on some platforms, like Macports postgresql4-server.
 

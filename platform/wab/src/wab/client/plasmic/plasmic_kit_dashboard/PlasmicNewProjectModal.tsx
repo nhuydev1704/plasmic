@@ -130,7 +130,7 @@ function PlasmicNewProjectModal__RenderFunc(props: {
         </Button>
       }
       tintBackground={true}
-      title={"New Project"}
+      title={"New Project test"}
     >
       <Stack__
         as={"div"}

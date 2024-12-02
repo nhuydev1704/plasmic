@@ -865,6 +865,7 @@ function getHostLess(studioCtx: StudioCtx): AddItemGroup[] {
         meta.onlyShownIn !== "old" && shouldShowHostLessPackage(studioCtx, meta)
     )
     .map<AddItemGroup>((meta) => {
+      console.log("meta", meta);
       const existingDep = ensureArray(meta.projectId).every((projectId) =>
         studioCtx.site.projectDependencies.find(
           (dep) => dep.projectId === projectId

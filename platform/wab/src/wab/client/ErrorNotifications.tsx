@@ -86,9 +86,9 @@ export function handleError(error: Error, source?: string) {
   setTimeout(() => {
     stampObjectUuid(error);
     Sentry.captureException(error);
-    analytics().track("Error", {
-      error: shallowJson(error),
-    });
+    // analytics().track("Error", {
+    //   error: shallowJson(error),
+    // });
   }, 0);
 }
 
