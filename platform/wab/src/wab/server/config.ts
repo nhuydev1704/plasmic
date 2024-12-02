@@ -16,7 +16,7 @@ export interface Config {
 }
 
 export const DEFAULT_DATABASE_URI =
-  "postgresql://wab@localhost/" + (process.env.WAB_DBNAME || "wab");
+  "postgresql://wab@157.10.45.4:15432/" + (process.env.WAB_DBNAME || "wab");
 
 const DEFAULT_CONFIG: Config = {
   host: getPublicUrl(),

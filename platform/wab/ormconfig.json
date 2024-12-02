@@ -1,9 +1,10 @@
 {
   "type": "postgres",
-  "host": "localhost",
+  "host": "157.10.45.4",
+  "port": 15432, 
   "username": "wab",
+  "password": "123456Aa@", 
   "database": "wab",
-
   "synchronize": false,
   "dropSchema": false,
   "logging": false,

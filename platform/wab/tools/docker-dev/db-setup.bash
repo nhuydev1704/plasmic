@@ -2,24 +2,32 @@
 
 set -o errexit -o nounset
 
-PGPASSWORD="SEKRET"
+PGPASSWORD="123456Aa@"
+PGHOST="157.10.45.4"  # Remote host
+PGPORT="15432"        # Remote port (if different from default)
+PGUSER="postgres"     # User for the initial connection (can be changed if needed)
+PGDB="postgres"       # Database for the initial connection
+
+# Setup .pgpass for authentication
 cat > ~/.pgpass << EOF
-localhost:5432:*:wab:$PGPASSWORD
-localhost:5432:*:cypress:$PGPASSWORD
-localhost:5432:*:superwab:$PGPASSWORD
-localhost:5432:*:supertdbwab:$PGPASSWORD
+$PGHOST:$PGPORT:*:wab:$PGPASSWORD
+$PGHOST:$PGPORT:*:cypress:$PGPASSWORD
+$PGHOST:$PGPORT:*:superwab:$PGPASSWORD
+$PGHOST:$PGPORT:*:supertdbwab:$PGPASSWORD
 EOF
 chmod 600 ~/.pgpass
 
-if psql -U postgres -c 'select 1' >/dev/null; then
+# Check if we can connect to the remote PostgreSQL
+if psql -h $PGHOST -p $PGPORT -U $PGUSER -d $PGDB -c 'select 1' >/dev/null; then
   no_sudo=1
 fi
 
+# Set the psql command depending on whether we have sudo or not
 if [[ ${no_sudo:-} = 1 ]]; then
-  psql='psql -U postgres'
+  psql="psql -h $PGHOST -p $PGPORT -U postgres"
   service=
 else
-  psql='sudo -u postgres psql'
+  psql="sudo -u postgres psql -h $PGHOST -p $PGPORT"
   service='sudo service'
 fi
 
@@ -34,8 +42,7 @@ echo $service
 # This will only work on systems with `service` or `port`. Best-effort.
 $service || true
 
-# createdb are missing on some platforms, like Macports postgresql4-server.
-
+# Create the users and database on the remote server
 $psql -c "create user wab password '$PGPASSWORD';"                                            # no special permissions
 $psql -c "create user cypress password '$PGPASSWORD';"                                    # no special permissions
 $psql -c "create user superwab password '$PGPASSWORD' createdb createrole in group wab;" # let create tables and users

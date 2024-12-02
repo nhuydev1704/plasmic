@@ -23,7 +23,7 @@ export async function makeTutorialDbFetcher(
         password: tdb.info.password,
       },
       settings: {
-        port: "5432",
+        port: "15432",
         name: tdb.info.databaseName,
         user: tdb.info.userName,
         host: ensure(getTutorialDbHost(), "Must have tutorial db host"),

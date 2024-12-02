@@ -215,7 +215,7 @@ export const POSTGRES_META: DataSourceMeta = {
       placeholder: "my.postgresql.host.com",
       required: true,
     },
-    port: { type: "string", label: "Port", default: 5432, required: true },
+    port: { type: "string", label: "Port", default: 15432, required: true },
     name: {
       type: "string",
       label: "Database name",
