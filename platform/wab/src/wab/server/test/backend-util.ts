@@ -81,13 +81,13 @@ export async function getTeamAndWorkspace(db1: DbMgr) {
 export async function createDatabase() {
   const dbname = `test_${dbNameGen()}`.toLowerCase();
   const sucon = await ensureDbConnection(
-    "postgresql://superwab@localhost/postgres",
+    "postgresql://superwab@157.10.45.4/postgres",
     "super"
   );
   await sucon.query("select 1");
   await sucon.query(`create database ${dbname} owner wab;`);
   await sucon.query(`grant pg_signal_backend to wab;`);
-  const dburi = `postgresql://wab@localhost/${dbname}`;
+  const dburi = `postgresql://wab@157.10.45.4/${dbname}`;
   const con = await ensureDbConnection(dburi, dbname);
   await con.synchronize();
   await con.transaction(async (em) => {

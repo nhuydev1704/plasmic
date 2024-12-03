@@ -1,6 +1,6 @@
 {
   "type": "postgres",
-  "host": "localhost",
+  "host": "157.10.45.4",
   "username": "wab",
   "database": "wab",
 
